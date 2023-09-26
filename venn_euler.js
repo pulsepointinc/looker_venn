@@ -254,6 +254,9 @@ const visObject = {
           },
         },
       });
+
+      var existingChart = getChartWithID('0');
+      existingChart.destroy();
   
       doneRendering();
     },
