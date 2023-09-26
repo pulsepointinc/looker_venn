@@ -150,10 +150,17 @@ const visObject = {
     },
   
     create: function (element, config) {
-      element.innerHTML = "";
+      element.innerHTML = `
+          <head>
+          <link href='https://fonts.googleapis.com/css2?family=Google+Sans:wght@100;200;300;400;500;700;900&display=swap' rel='stylesheet'>
+          </head>
+        `;
     },
   
     updateAsync: function (data, element, config, queryResponse, details, doneRendering) {
+
+      this.clearErrors();
+
       function replaceCommaWithSymbol(str) {
         return str.replace(/,/g, ' ∩ ');
       }
@@ -176,7 +183,7 @@ const visObject = {
       const individualElements = Array.from(new Set(dimensions.flatMap(item => item.split(','))));
       
       if (individualElements.length >= rowCap) {
-        //error
+        this.addError({title: "Too many series", message: "This chart supports up to 5 lists."});
       }
   
       const labelArray = dimensions.map(replaceCommaWithSymbol);
@@ -254,9 +261,6 @@ const visObject = {
           },
         },
       });
-
-      var existingChart = getChartWithID('0');
-      existingChart.destroy();
   
       doneRendering();
     },
