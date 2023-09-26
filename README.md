@@ -1,2 +1,3 @@
-# looker_venn
-Repository to hold a custom visualization
+## Venn/Euler chart
+
+This Looker visualization has been developed in-house at PulsePoint Inc.
