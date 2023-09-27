@@ -230,11 +230,11 @@ const visObject = {
     console.log(result)
     
     const vizCanvas = document.createElement('canvas');
-    vizCanvas.setAttribute("id", "chartplot");
+    vizCanvas.setAttribute("id", "myChart");
     const vizDiv = document.getElementById("vis");
     vizDiv.appendChild(vizCanvas);
 
-    const ctx = document.getElementById("chartplot");
+    const ctx = document.getElementById("myChart");
 
     const diagramData = {
       labels: labelArray,
@@ -245,6 +245,11 @@ const visObject = {
         },
       ],
     };
+
+    let chartStatus = Chart.getChart("myChart");
+    if (chartStatus != undefined) {
+      chartStatus.destroy();
+    }
 
     const chart = new Chart(ctx, {
       type: config.diagram_type,
