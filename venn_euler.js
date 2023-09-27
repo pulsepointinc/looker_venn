@@ -150,7 +150,11 @@ const visObject = {
   },
 
   create: function (element, config) {
-    element.innerHTML = "";
+    element.innerHTML = `
+    <head>
+    <link href='https://fonts.googleapis.com/css2?family=Google+Sans:wght@100;200;300;400;500;700;900&display=swap' rel='stylesheet'>
+    </head>
+  `;
   },
 
   updateAsync: function (data, element, config, queryResponse, details, doneRendering) {
