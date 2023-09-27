@@ -230,11 +230,11 @@ const visObject = {
     console.log(result)
     
     const vizCanvas = document.createElement('canvas');
-    vizCanvas.setAttribute("id", "myChart");
+    vizCanvas.setAttribute("id", "chartplot");
     const vizDiv = document.getElementById("vis");
     vizDiv.appendChild(vizCanvas);
 
-    const ctx = document.getElementById("myChart");
+    const ctx = document.getElementById("chartplot");
 
     const diagramData = {
       labels: labelArray,
