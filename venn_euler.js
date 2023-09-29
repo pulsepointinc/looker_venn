@@ -161,21 +161,58 @@ const visObject = {
     function replaceCommaWithSymbol(str) {
       return str.replace(/,/g, ' ∩ ');
     }
+      
+    // META
+    const measures_count = queryResponse.fields.measures.length;
+    const dimensions_count = queryResponse.fields.dimensions.length;
+    const pivots_count = queryResponse.fields.pivots.length;
+    const table_calculations_count = queryResponse.fields.table_calculations.length;
+    const dimension_name = queryResponse.fields.dimensions[0].name;
+    const measure_name = queryResponse.fields.measures[0].name;
+
+    // VALIDATION
+    if (measures_count == 0) {
+      this.addError({title: "No measure", message: "Visualization requires one dimension and one measure."});
+      return;
+    }
+    
+    if (measures_count > 1) {
+      this.addError({title: "Too many measures", message: "Visualization requires one dimension and one measure."});
+      return;
+    }
+    if (dimensions_count == 0) {
+      this.addError({title: "No dimension", message: "Visualization requires one dimension and one measure."});
+      return;
+    }
+    
+    if (dimensions_count > 1) {
+      this.addError({title: "Too many dimensions", message: "Visualization requires one dimension and one measure."});
+      return;
+    }
+    if (pivots_count > 0 || table_calculations_count > 0) {
+      this.addError({title: "Pivots", message: "Visualization can't accept pivots or table calculations"});
+      return;
+    }
 
     const result = [];
 
     const uniqueSets = new Set();
     for (const item of data) {
-      const sets = item['npi_list_aggregate.lists'].value.split(',');
+      const sets = item[dimension_name].value.split(',');
       for (const set of sets) {
         uniqueSets.add(set.trim());
       }
+    }
+    
+    if (uniqueSets > 5) {
+      this.addError({title: "Too many elements", message: "Visualization can handle up to 5 distinct groups"});
+      return;
     }
 
     
     const externalDataSets = new Set();
     for (const item of data) {
-      const sets = item['npi_list_aggregate.lists'].value;
+      const sets = item[dimension_name].value;
       externalDataSets.add(sets);
     }
 
@@ -200,7 +237,6 @@ const visObject = {
     }
 
     const allCombinations = generateCombinations(Array.from(uniqueSets));
-    console.log(allCombinations, 'asd')
     const labelArray = Array.from(allCombinations).map((item) => {
       if(item.length > 1) {
         return item.join()
@@ -213,18 +249,16 @@ const visObject = {
     for (const combination of allCombinations) {
       let value = 0;
       for (const item of data) {
-        const itemSets = item['npi_list_aggregate.lists'].value
+        const itemSets = item[dimension_name].value
           .split(',')
           .map((s) => s.trim());
-
-        console.log(item['npi_list_aggregate.lists'].value)
 
         for (const set of availableData) {
           if (
             set.sort().join(',') === combination.sort().join(',') &&
             itemSets.sort().join(',') === set.sort().join(',')
           ) {
-            value = item['npi_reference.count'].value;
+            value = item[measure_name].value;
           }
         }
       }
