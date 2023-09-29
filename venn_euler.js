@@ -166,6 +166,7 @@ const visObject = {
   },
 
   updateAsync: function (data, element, config, queryResponse, details, doneRendering) {
+    this.clearErrors();
     function replaceCommaWithSymbol(str) {
       return str.replace(/,/g, ' ∩ ');
     }
@@ -175,8 +176,6 @@ const visObject = {
     const dimensions_count = queryResponse.fields.dimensions.length;
     const pivots_count = queryResponse.fields.pivots.length;
     const table_calculations_count = queryResponse.fields.table_calculations.length;
-    const dimension_name = queryResponse.fields.dimensions[0].name;
-    const measure_name = queryResponse.fields.measures[0].name;
 
     // VALIDATION
     if (measures_count == 0) {
@@ -201,7 +200,9 @@ const visObject = {
       this.addError({title: "Pivots", message: "Visualization can't accept pivots or table calculations"});
       return;
     }
-
+    
+    const dimension_name = queryResponse.fields.dimensions[0].name;
+    const measure_name = queryResponse.fields.measures[0].name;
     const result = [];
 
     const uniqueSets = new Set();
