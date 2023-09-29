@@ -150,7 +150,7 @@ const visObject = {
     data_labels_show_zeros: {
       default: false,
       display_size: 'third',
-      label: 'Show zeros',
+      label: 'Hide zeros',
       order: 5,
       section: 'Data',
       type: 'boolean',
@@ -200,7 +200,7 @@ const visObject = {
       this.addError({title: "Pivots", message: "Visualization can't accept pivots or table calculations"});
       return;
     }
-    
+
     const dimension_name = queryResponse.fields.dimensions[0].name;
     const measure_name = queryResponse.fields.measures[0].name;
     const result = [];
