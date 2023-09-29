@@ -147,6 +147,14 @@ const visObject = {
         { 'Times New Roman': 'Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans CJK KR", "Noto Sans Arabic UI", "Noto Sans Devanagari UI", "Noto Sans Hebrew", "Noto Sans Thai UI", Helvetica, Arial, sans-serif' },
       ],
     },
+    data_labels_show_zeros: {
+      default: false,
+      display_size: 'third',
+      label: 'Show zeros',
+      order: 5,
+      section: 'Labels',
+      type: 'boolean',
+    },
   },
 
   create: function (element, config) {
@@ -261,6 +269,9 @@ const visObject = {
             value = item[measure_name].value;
           }
         }
+      }
+      if (value == 0 && config.data_labels_show_zeros) {
+        value = '';
       }
       result.push({ sets: combination, value });
     }
