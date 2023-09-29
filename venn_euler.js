@@ -152,7 +152,7 @@ const visObject = {
       display_size: 'third',
       label: 'Show zeros',
       order: 5,
-      section: 'Labels',
+      section: 'Data',
       type: 'boolean',
     },
   },
