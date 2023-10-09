@@ -318,7 +318,7 @@ const visObject = {
         borderColor: config.border_color,
         borderWidth: config.border_width,
         responsive: config.autosizing,
-        maintainAspectRatio: false;
+        maintainAspectRatio: false,
         scales: {
           y: {
             ticks: {
