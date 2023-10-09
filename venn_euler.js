@@ -1,5 +1,5 @@
 const visObject = {
-  
+
   options: {
     diagram_type: {
       default: 'venn',
@@ -170,7 +170,7 @@ const visObject = {
     function replaceCommaWithSymbol(str) {
       return str.replace(/,/g, ' ∩ ');
     }
-      
+
     // META
     const measures_count = queryResponse.fields.measures.length;
     const dimensions_count = queryResponse.fields.dimensions.length;
@@ -182,7 +182,7 @@ const visObject = {
       this.addError({title: "No measure", message: "Visualization requires one dimension and one measure."});
       return;
     }
-    
+
     if (measures_count > 1) {
       this.addError({title: "Too many measures", message: "Visualization requires one dimension and one measure."});
       return;
@@ -191,7 +191,7 @@ const visObject = {
       this.addError({title: "No dimension", message: "Visualization requires one dimension and one measure."});
       return;
     }
-    
+
     if (dimensions_count > 1) {
       this.addError({title: "Too many dimensions", message: "Visualization requires one dimension and one measure."});
       return;
@@ -212,13 +212,13 @@ const visObject = {
         uniqueSets.add(set.trim());
       }
     }
-    
+
     if (uniqueSets > 5) {
       this.addError({title: "Too many elements", message: "Visualization can handle up to 5 distinct groups"});
       return;
     }
 
-    
+
     const externalDataSets = new Set();
     for (const item of data) {
       const sets = item[dimension_name].value;
@@ -253,8 +253,8 @@ const visObject = {
         return item[0];
       }
     })
-    
-    
+
+
     for (const combination of allCombinations) {
       let value = 0;
       for (const item of data) {
@@ -277,8 +277,6 @@ const visObject = {
       result.push({ sets: combination, value });
     }
 
-    console.log(result)
-    
     const vizCanvas = document.createElement('canvas');
     vizCanvas.setAttribute("id", "myChart");
     const vizDiv = document.getElementById("vis");
@@ -320,6 +318,7 @@ const visObject = {
         borderColor: config.border_color,
         borderWidth: config.border_width,
         responsive: config.autosizing,
+        maintainAspectRatio: false;
         scales: {
           y: {
             ticks: {
