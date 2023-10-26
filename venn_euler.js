@@ -279,7 +279,7 @@ const visObject = {
 
 
     var elementExists = document.getElementById('myChart');
-    if (!elementExists) {
+    if (!elementExists.hasAttribute('style')) {
       return;
     }
 
