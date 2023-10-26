@@ -277,6 +277,12 @@ const visObject = {
       result.push({ sets: combination, value });
     }
 
+
+    var elementExists = document.getElementById('myChart');
+    if (!elementExists) {
+      return;
+    }
+
     const vizCanvas = document.createElement('canvas');
     vizCanvas.setAttribute("id", "myChart");
     const vizDiv = document.getElementById("vis");
