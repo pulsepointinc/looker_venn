@@ -345,6 +345,10 @@ const visObject = {
     });
 
     doneRendering();
+    var elementExists = document.getElementById('myChart');
+    if (!elementExists?.hasAttribute('style')) {
+      return;
+    }
   },
 };
 
