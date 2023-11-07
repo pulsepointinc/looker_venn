@@ -309,11 +309,6 @@ const visObject = {
       result.push({ sets: combination, value });
     }
 
-    var elementExists = document.getElementById('myChart');
-    if (!elementExists.hasAttribute('style')) {
-      return;
-    }
-
     const vizCanvas = document.createElement('canvas');
     vizCanvas.setAttribute('id', 'myChart');
     const vizDiv = document.getElementById('vis');
@@ -383,7 +378,7 @@ const visObject = {
 
     doneRendering();
     var elementExists = document.getElementById('myChart');
-    if (!elementExists?.hasAttribute('style')) {
+    if (elementExists && !elementExists?.hasAttribute('style')) {
       return;
     }
   },
