@@ -1,5 +1,4 @@
 const visObject = {
-
   options: {
     diagram_type: {
       default: 'venn',
@@ -8,10 +7,7 @@ const visObject = {
       order: 1,
       section: 'General',
       type: 'string',
-      values: [
-        { 'Venn': 'venn' },
-        { 'Euler': 'euler' },
-      ],
+      values: [{ Venn: 'venn' }, { Euler: 'euler' }],
     },
     legend_show: {
       default: false,
@@ -23,29 +19,29 @@ const visObject = {
     },
     legend_text: {
       section: 'General',
-      type: "string",
-      label: "Legend label",
+      type: 'string',
+      label: 'Legend label',
       display_size: 'two-thirds',
       order: 3,
-      default: ""
+      default: '',
     },
     background_color: {
       section: 'General',
       display_size: 'third',
       order: 4,
-      type: "string",
-      label: "Background color",
-      default: "#000000",
-      display: "color"
+      type: 'string',
+      label: 'Background color',
+      default: '#000000',
+      display: 'color',
     },
     border_color: {
       section: 'General',
       display_size: 'third',
       order: 5,
-      type: "string",
-      label: "Border color",
-      default: "#000000",
-      display: "color"
+      type: 'string',
+      label: 'Border color',
+      default: '#000000',
+      display: 'color',
     },
     border_width: {
       default: 1,
@@ -83,10 +79,10 @@ const visObject = {
       section: 'Labels',
       display_size: 'third',
       order: 2,
-      type: "string",
-      label: "Labels color",
-      default: "#000000",
-      display: "color"
+      type: 'string',
+      label: 'Labels color',
+      default: '#000000',
+      display: 'color',
     },
     labels_font_size: {
       default: 12,
@@ -104,9 +100,15 @@ const visObject = {
       section: 'Labels',
       type: 'string',
       values: [
-        { 'Looker': '"Google Sans"' },
-        { 'Helvetica': 'BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif' },
-        { 'Times New Roman': 'Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans CJK KR", "Noto Sans Arabic UI", "Noto Sans Devanagari UI", "Noto Sans Hebrew", "Noto Sans Thai UI", Helvetica, Arial, sans-serif' },
+        { Looker: '"Google Sans"' },
+        {
+          Helvetica:
+            'BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+        },
+        {
+          'Times New Roman':
+            'Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans CJK KR", "Noto Sans Arabic UI", "Noto Sans Devanagari UI", "Noto Sans Hebrew", "Noto Sans Thai UI", Helvetica, Arial, sans-serif',
+        },
       ],
     },
     data_labels_show: {
@@ -121,10 +123,10 @@ const visObject = {
       section: 'Data',
       display_size: 'third',
       order: 2,
-      type: "string",
-      label: "Labels color",
-      default: "#000000",
-      display: "color"
+      type: 'string',
+      label: 'Labels color',
+      default: '#000000',
+      display: 'color',
     },
     data_labels_font_size: {
       default: 12,
@@ -142,9 +144,15 @@ const visObject = {
       section: 'Data',
       type: 'string',
       values: [
-        { 'Looker': '"Google Sans"' },
-        { 'Helvetica': 'BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif' },
-        { 'Times New Roman': 'Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans CJK KR", "Noto Sans Arabic UI", "Noto Sans Devanagari UI", "Noto Sans Hebrew", "Noto Sans Thai UI", Helvetica, Arial, sans-serif' },
+        { Looker: '"Google Sans"' },
+        {
+          Helvetica:
+            'BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+        },
+        {
+          'Times New Roman':
+            'Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans CJK KR", "Noto Sans Arabic UI", "Noto Sans Devanagari UI", "Noto Sans Hebrew", "Noto Sans Thai UI", Helvetica, Arial, sans-serif',
+        },
       ],
     },
     data_labels_show_zeros: {
@@ -165,7 +173,14 @@ const visObject = {
   `;
   },
 
-  updateAsync: function (data, element, config, queryResponse, details, doneRendering) {
+  updateAsync: function (
+    data,
+    element,
+    config,
+    queryResponse,
+    details,
+    doneRendering
+  ) {
     this.clearErrors();
     function replaceCommaWithSymbol(str) {
       return str.replace(/,/g, ' ∩ ');
@@ -175,29 +190,45 @@ const visObject = {
     const measures_count = queryResponse.fields.measures.length;
     const dimensions_count = queryResponse.fields.dimensions.length;
     const pivots_count = queryResponse.fields.pivots.length;
-    const table_calculations_count = queryResponse.fields.table_calculations.length;
+    const table_calculations_count =
+      queryResponse.fields.table_calculations.length;
 
     // VALIDATION
     if (measures_count == 0) {
-      this.addError({title: "No measure", message: "Visualization requires one dimension and one measure."});
+      this.addError({
+        title: 'No measure',
+        message: 'Visualization requires one dimension and one measure.',
+      });
       return;
     }
 
     if (measures_count > 1) {
-      this.addError({title: "Too many measures", message: "Visualization requires one dimension and one measure."});
+      this.addError({
+        title: 'Too many measures',
+        message: 'Visualization requires one dimension and one measure.',
+      });
       return;
     }
     if (dimensions_count == 0) {
-      this.addError({title: "No dimension", message: "Visualization requires one dimension and one measure."});
+      this.addError({
+        title: 'No dimension',
+        message: 'Visualization requires one dimension and one measure.',
+      });
       return;
     }
 
     if (dimensions_count > 1) {
-      this.addError({title: "Too many dimensions", message: "Visualization requires one dimension and one measure."});
+      this.addError({
+        title: 'Too many dimensions',
+        message: 'Visualization requires one dimension and one measure.',
+      });
       return;
     }
     if (pivots_count > 0 || table_calculations_count > 0) {
-      this.addError({title: "Pivots", message: "Visualization can't accept pivots or table calculations"});
+      this.addError({
+        title: 'Pivots',
+        message: "Visualization can't accept pivots or table calculations",
+      });
       return;
     }
 
@@ -214,10 +245,12 @@ const visObject = {
     }
 
     if (uniqueSets > 5) {
-      this.addError({title: "Too many elements", message: "Visualization can handle up to 5 distinct groups"});
+      this.addError({
+        title: 'Too many elements',
+        message: 'Visualization can handle up to 5 distinct groups',
+      });
       return;
     }
-
 
     const externalDataSets = new Set();
     for (const item of data) {
@@ -241,19 +274,18 @@ const visObject = {
         }
       };
       f(setArray, []);
-      const sorted = result.sort((a,b) => a.length - b.length)
+      const sorted = result.sort((a, b) => a.length - b.length);
       return sorted;
     }
 
     const allCombinations = generateCombinations(Array.from(uniqueSets));
     const labelArray = Array.from(allCombinations).map((item) => {
-      if(item.length > 1) {
-        return item.join()
+      if (item.length > 1) {
+        return item.join();
       } else {
         return item[0];
       }
-    })
-
+    });
 
     for (const combination of allCombinations) {
       let value = 0;
@@ -277,12 +309,17 @@ const visObject = {
       result.push({ sets: combination, value });
     }
 
+    var elementExists = document.getElementById('myChart');
+    if (!elementExists.hasAttribute('style')) {
+      return;
+    }
+
     const vizCanvas = document.createElement('canvas');
-    vizCanvas.setAttribute("id", "myChart");
-    const vizDiv = document.getElementById("vis");
+    vizCanvas.setAttribute('id', 'myChart');
+    const vizDiv = document.getElementById('vis');
     vizDiv.appendChild(vizCanvas);
 
-    const ctx = document.getElementById("myChart");
+    const ctx = document.getElementById('myChart');
 
     const diagramData = {
       labels: labelArray,
@@ -294,7 +331,7 @@ const visObject = {
       ],
     };
 
-    let chartStatus = Chart.getChart("myChart");
+    let chartStatus = Chart.getChart('myChart');
     if (chartStatus != undefined) {
       chartStatus.destroy();
     }
