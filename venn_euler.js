@@ -1,3 +1,4 @@
+// FIXME: Test
 const visObject = {
   options: {
     diagram_type: {
