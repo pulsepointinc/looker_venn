@@ -373,6 +373,27 @@ const visObject = {
             },
           },
         },
+        onClick: function (event, _, chart) {
+          const chartElements = chart.getElementsAtEventForMode(
+            event,
+            'nearest',
+            { intersect: true },
+            false
+          );
+          const chartElement = chartElements[0];
+          if (!chartElement) return;
+          const index = chartElement.index;
+          const combination = chart.data.datasets[0].data[index];
+          const url = queryResponse.drill_metadata.template
+            .replace(/<DRILL_BY>/g, '')
+            .replace(/<DRILL_INTO>/g, dimension_name)
+            .replace(/<DRILL_VALUE>/g, combination.sets.join(','));
+          LookerCharts.Utils.openDrillMenu({
+            links: [
+              { label: `View ${combination.sets.join(' ∩ ')} Data`, url },
+            ],
+          });
+        },
       },
     });
 
