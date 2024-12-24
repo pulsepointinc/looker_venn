@@ -177,7 +177,7 @@ const visObject = {
     },
   },
 
-  create: function (element, config) {
+  create: function (element) {
     element.innerHTML = `
     <head>
     <link href='https://fonts.googleapis.com/css2?family=Google+Sans:wght@100;200;300;400;500;700;900&display=swap' rel='stylesheet'>
@@ -362,44 +362,42 @@ const visObject = {
           y: {
             ticks: {
               display: config.labels_show,
-              color: config.labels_color,
               font: {
                 size: config.labels_font_size,
                 family: config.labels_font_family,
               },
+              color: config.labels_color,
             },
           },
           x: {
             ticks: {
               display: config.data_labels_show,
-              color: config.data_labels_color,
               font: {
                 size: config.data_labels_font_size,
                 family: config.data_labels_font_family,
               },
+              color: config.labels_color,
             },
           },
         },
-        onClick: function (event, _, chart) {
-          const chartElements = chart.getElementsAtEventForMode(
-            event,
-            'nearest',
-            { intersect: true },
-            false
-          );
-          const chartElement = chartElements[0];
+        onClick: function (event, elements) {
+          const chartElement = elements[0];
           if (!chartElement) return;
           const index = chartElement.index;
-          const combination = chart.data.datasets[0].data[index];
-          const url = queryResponse.drill_metadata.template
-            .replace(/<DRILL_BY>/g, '')
-            .replace(/<DRILL_INTO>/g, dimension_name)
-            .replace(/<DRILL_VALUE>/g, combination.sets.join(','));
+          const dataPoint = data[index];
+          if (!dataPoint) return;
+          const dimensionLinks = dataPoint[dimension_name].links ?? [];
+          const measureLinks = dataPoint[measure_name].links ?? [];
+          const links = [...dimensionLinks, ...measureLinks];
           LookerCharts.Utils.openDrillMenu({
-            links: [
-              { label: `View ${combination.sets.join(' ∩ ')} Data`, url },
-            ],
+            event: event.native,
+            links,
           });
+          if (details.crossfilterEnabled)
+            LookerCharts.Utils.toggleCrossfilter({
+              row: dataPoint,
+              event: event.native,
+            });
         },
       },
     });
