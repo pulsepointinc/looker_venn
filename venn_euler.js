@@ -1,152 +1,104 @@
 const visObject = {
   options: {
     diagram_type: {
-      section: 'General',
-      order: 1,
-      type: 'string',
-      label: 'Chart type',
-      display: 'select',
-      values: [{ Venn: 'venn' }, { Euler: 'euler' }],
       default: 'venn',
-    },
-    autosizing: {
+      display: 'select',
+      label: 'Chart type',
+      order: 1,
       section: 'General',
-      order: 2,
-      type: 'boolean',
-      label: 'Auto-size',
-      default: true,
-    },
-    layout_padding: {
-      section: 'General',
-      order: 3,
-      type: 'number',
-      label: 'Layout padding',
-      default: 10,
+      type: 'string',
+      values: [{ Venn: 'venn' }, { Euler: 'euler' }],
     },
     legend_show: {
-      section: 'General',
-      order: 4,
-      type: 'boolean',
-      label: 'Display legend',
       default: false,
+      display_size: 'third',
+      label: 'Show legend',
+      order: 2,
+      section: 'General',
+      type: 'boolean',
     },
     legend_text: {
       section: 'General',
-      order: 5,
       type: 'string',
       label: 'Legend label',
+      display_size: 'two-thirds',
+      order: 3,
       default: '',
     },
-    legend_font_family: {
+    background_color: {
       section: 'General',
-      order: 6,
+      display_size: 'third',
+      order: 4,
       type: 'string',
-      display: 'select',
-      label: 'Font family',
-      values: [
-        { Looker: '"Google Sans"' },
-        {
-          Helvetica:
-            'BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
-        },
-        {
-          'Times New Roman':
-            'Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans CJK KR", "Noto Sans Arabic UI", "Noto Sans Devanagari UI", "Noto Sans Hebrew", "Noto Sans Thai UI", Helvetica, Arial, sans-serif',
-        },
-      ],
-      default: '"Google Sans"',
+      label: 'Background color',
+      default: '#000000',
+      display: 'color',
     },
-    legend_font_size: {
+    border_color: {
       section: 'General',
-      order: 7,
-      type: 'number',
-      label: 'Font size (pt)',
-      default: 12,
-    },
-    background_colors: {
-      section: 'Circle',
-      order: 1,
-      type: 'array',
-      display: 'colors',
-      label: 'Background colors',
-      default: ['#ffffff', '#9CDCFE'],
+      display_size: 'third',
+      order: 5,
+      type: 'string',
+      label: 'Border color',
+      default: '#000000',
+      display: 'color',
     },
     border_width: {
-      section: 'Circle',
-      order: 2,
-      type: 'number',
-      label: 'Border width (pt)',
       default: 1,
+      display_size: 'third',
+      label: 'Border width (pt)',
+      order: 6,
+      section: 'General',
+      type: 'number',
     },
-    border_colors: {
-      section: 'Circle',
-      order: 3,
-      type: 'array',
-      display: 'colors',
-      label: 'Border colors',
-      default: ['#000000'],
+    autosizing: {
+      default: true,
+      display_size: 'third',
+      label: 'Auto-size',
+      order: 7,
+      section: 'General',
+      type: 'boolean',
+    },
+    layout_padding: {
+      default: 10,
+      display_size: 'two-thirds',
+      label: 'Layout padding',
+      order: 8,
+      section: 'General',
+      type: 'number',
     },
     labels_show: {
-      section: 'Label',
-      order: 1,
-      type: 'boolean',
-      label: 'Display labels',
       default: true,
-    },
-    labels_font_family: {
-      section: 'Label',
-      order: 2,
-      type: 'string',
-      display: 'select',
-      label: 'Font family',
-      values: [
-        { Looker: '"Google Sans"' },
-        {
-          Helvetica:
-            'BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
-        },
-        {
-          'Times New Roman':
-            'Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans CJK KR", "Noto Sans Arabic UI", "Noto Sans Devanagari UI", "Noto Sans Hebrew", "Noto Sans Thai UI", Helvetica, Arial, sans-serif',
-        },
-      ],
-      default: '"Google Sans"',
-    },
-    labels_font_size: {
-      section: 'Label',
-      order: 3,
-      type: 'number',
-      label: 'Font size (pt)',
-      default: 12,
+      display_size: 'third',
+      label: 'Show labels',
+      order: 1,
+      section: 'Labels',
+      type: 'boolean',
     },
     labels_color: {
-      section: 'Label',
-      order: 4,
+      section: 'Labels',
+      display_size: 'third',
+      order: 2,
       type: 'string',
-      display: 'color',
       label: 'Labels color',
       default: '#000000',
+      display: 'color',
     },
-    data_labels_show: {
-      section: 'Data',
-      order: 1,
-      type: 'boolean',
-      label: 'Display labels',
-      default: true,
-    },
-    data_labels_hide_zeros: {
-      section: 'Data',
-      order: 2,
-      type: 'boolean',
-      label: 'Hide zeros',
-      default: true,
-    },
-    data_labels_font_family: {
-      section: 'Data',
+    labels_font_size: {
+      default: 12,
+      display_size: 'third',
+      label: 'Font size (pt)',
       order: 3,
-      type: 'string',
+      section: 'Labels',
+      type: 'number',
+    },
+    labels_font_family: {
+      default: '"Google Sans"',
       display: 'select',
       label: 'Font Family',
+      order: 4,
+      section: 'Labels',
+      type: 'string',
       values: [
         { Looker: '"Google Sans"' },
         {
@@ -158,26 +110,62 @@ const visObject = {
             'Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans CJK KR", "Noto Sans Arabic UI", "Noto Sans Devanagari UI", "Noto Sans Hebrew", "Noto Sans Thai UI", Helvetica, Arial, sans-serif',
         },
       ],
-      default: '"Google Sans"',
     },
-    data_labels_font_size: {
+    data_labels_show: {
+      default: true,
+      display_size: 'third',
+      label: 'Show labels',
+      order: 1,
       section: 'Data',
-      order: 4,
-      type: 'number',
-      label: 'Font size (pt)',
-      default: 12,
+      type: 'boolean',
     },
     data_labels_color: {
       section: 'Data',
-      order: 5,
+      display_size: 'third',
+      order: 2,
       type: 'string',
-      display: 'color',
       label: 'Labels color',
       default: '#000000',
+      display: 'color',
+    },
+    data_labels_font_size: {
+      default: 12,
+      display_size: 'third',
+      label: 'Font size (pt)',
+      order: 3,
+      section: 'Data',
+      type: 'number',
+    },
+    data_labels_font_family: {
+      default: '"Google Sans"',
+      display: 'select',
+      label: 'Font Family',
+      order: 4,
+      section: 'Data',
+      type: 'string',
+      values: [
+        { Looker: '"Google Sans"' },
+        {
+          Helvetica:
+            'BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+        },
+        {
+          'Times New Roman':
+            'Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans CJK KR", "Noto Sans Arabic UI", "Noto Sans Devanagari UI", "Noto Sans Hebrew", "Noto Sans Thai UI", Helvetica, Arial, sans-serif',
+        },
+      ],
+    },
+    data_labels_show_zeros: {
+      default: false,
+      display_size: 'third',
+      label: 'Hide zeros',
+      order: 5,
+      section: 'Data',
+      type: 'boolean',
     },
   },
 
-  create: function (element) {
+  create: function (element, config) {
     element.innerHTML = `
     <head>
     <link href='https://fonts.googleapis.com/css2?family=Google+Sans:wght@100;200;300;400;500;700;900&display=swap' rel='stylesheet'>
@@ -194,6 +182,9 @@ const visObject = {
     doneRendering
   ) {
     this.clearErrors();
+    function replaceCommaWithSymbol(str) {
+      return str.replace(/,/g, ' ∩ ');
+    }
 
     // META
     const measures_count = queryResponse.fields.measures.length;
@@ -210,6 +201,7 @@ const visObject = {
       });
       return;
     }
+
     if (measures_count > 1) {
       this.addError({
         title: 'Too many measures',
@@ -224,6 +216,7 @@ const visObject = {
       });
       return;
     }
+
     if (dimensions_count > 1) {
       this.addError({
         title: 'Too many dimensions',
@@ -310,7 +303,7 @@ const visObject = {
           }
         }
       }
-      if (value == 0 && config.data_labels_hide_zeros) {
+      if (value == 0 && config.data_labels_show_zeros) {
         value = '';
       }
       result.push({ sets: combination, value });
@@ -338,20 +331,6 @@ const visObject = {
       chartStatus.destroy();
     }
 
-    function shadeColor(color, magnitude) {
-      color = color.replace('#', '');
-      if (color.length !== 6) return color;
-      const decimalColor = parseInt(color, 16);
-      let red = (decimalColor >> 16) + magnitude;
-      red = Math.min(255, Math.max(0, red));
-      let green = ((decimalColor >> 8) & 0x00ff) + magnitude;
-      green = Math.min(255, Math.max(0, green));
-      let blue = (decimalColor & 0x0000ff) + magnitude;
-      blue = Math.min(255, Math.max(0, blue));
-      const adjustedColor = (red << 16) | (green << 8) | blue;
-      return `#${adjustedColor.toString(16).padStart(6, `0`)}`;
-    }
-
     const chart = new Chart(ctx, {
       type: config.diagram_type,
       data: diagramData,
@@ -362,23 +341,13 @@ const visObject = {
         plugins: {
           legend: {
             display: config.legend_show,
-            labels: {
-              font: {
-                size: config.legend_font_size,
-                family: config.legend_font_family,
-              },
-            },
           },
-          title: { display: false },
+          title: {
+            display: false,
+          },
         },
-        backgroundColor: config.background_colors.map((color, index) =>
-          LookerCharts.Utils.getCrossfilterSelection(data[index]) === 1
-            ? shadeColor(color, 5)
-            : LookerCharts.Utils.getCrossfilterSelection(data[index]) !== 0
-            ? '#DEE1E5'
-            : color
-        ),
-        borderColor: config.border_colors,
+        backgroundColor: config.background_color,
+        borderColor: config.border_color,
         borderWidth: config.border_width,
         responsive: config.autosizing,
         maintainAspectRatio: false,
@@ -386,42 +355,23 @@ const visObject = {
           y: {
             ticks: {
               display: config.labels_show,
+              color: config.labels_color,
               font: {
                 size: config.labels_font_size,
                 family: config.labels_font_family,
               },
-              color: config.labels_color,
             },
           },
           x: {
             ticks: {
               display: config.data_labels_show,
+              color: config.data_labels_color,
               font: {
                 size: config.data_labels_font_size,
                 family: config.data_labels_font_family,
               },
-              color: config.data_labels_color,
             },
           },
-        },
-        onClick: function (event, elements) {
-          const chartElement = elements[0];
-          if (!chartElement) return;
-          const index = chartElement.index;
-          const dataPoint = data[index];
-          if (!dataPoint) return;
-          const dimensionLinks = dataPoint[dimension_name].links ?? [];
-          const measureLinks = dataPoint[measure_name].links ?? [];
-          const links = [...dimensionLinks, ...measureLinks];
-          LookerCharts.Utils.openDrillMenu({
-            event: event.native,
-            links,
-          });
-          if (details.crossfilterEnabled)
-            LookerCharts.Utils.toggleCrossfilter({
-              row: dataPoint,
-              event: event.native,
-            });
         },
       },
     });
