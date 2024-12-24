@@ -400,7 +400,7 @@ const visObject = {
                 size: config.data_labels_font_size,
                 family: config.data_labels_font_family,
               },
-              color: config.labels_color,
+              color: config.data_labels_color,
             },
           },
         },
