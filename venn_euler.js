@@ -9,66 +9,92 @@ const visObject = {
       values: [{ Venn: 'venn' }, { Euler: 'euler' }],
       default: 'venn',
     },
-    legend_show: {
-      section: 'General',
-      order: 2,
-      type: 'boolean',
-      label: 'Display legend',
-      default: false,
-    },
-    legend_text: {
-      section: 'General',
-      order: 3,
-      type: 'string',
-      label: 'Legend label',
-      default: '',
-    },
     autosizing: {
       section: 'General',
-      order: 4,
+      order: 2,
       type: 'boolean',
       label: 'Auto-size',
       default: true,
     },
     layout_padding: {
       section: 'General',
-      order: 5,
+      order: 3,
       type: 'number',
       label: 'Layout padding',
       default: 10,
     },
+    legend_show: {
+      section: 'General',
+      order: 4,
+      type: 'boolean',
+      label: 'Display legend',
+      default: false,
+    },
+    legend_text: {
+      section: 'General',
+      order: 5,
+      type: 'string',
+      label: 'Legend label',
+      default: '',
+    },
+    legend_font_family: {
+      section: 'General',
+      order: 6,
+      type: 'string',
+      display: 'select',
+      label: 'Font family',
+      values: [
+        { Looker: '"Google Sans"' },
+        {
+          Helvetica:
+            'BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+        },
+        {
+          'Times New Roman':
+            'Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans CJK KR", "Noto Sans Arabic UI", "Noto Sans Devanagari UI", "Noto Sans Hebrew", "Noto Sans Thai UI", Helvetica, Arial, sans-serif',
+        },
+      ],
+      default: '"Google Sans"',
+    },
+    legend_font_size: {
+      section: 'General',
+      order: 7,
+      type: 'number',
+      label: 'Font size (pt)',
+      default: 12,
+    },
     background_colors: {
-      section: 'Appearance',
+      section: 'Circle',
       order: 1,
       type: 'array',
+      display: 'colors',
       label: 'Background colors',
-      items: { type: 'string', display: 'color' },
-      default: ['#ffffff'],
+      default: ['#ffffff', '#9CDCFE'],
     },
     border_width: {
-      section: 'Appearance',
+      section: 'Circle',
       order: 2,
       type: 'number',
       label: 'Border width (pt)',
       default: 1,
     },
     border_colors: {
-      section: 'Appearance',
+      section: 'Circle',
       order: 3,
       type: 'array',
+      display: 'colors',
       label: 'Border colors',
-      items: { type: 'string', display: 'color' },
       default: ['#000000'],
     },
     labels_show: {
-      section: 'Labels',
+      section: 'Label',
       order: 1,
       type: 'boolean',
       label: 'Display labels',
       default: true,
     },
     labels_font_family: {
-      section: 'Labels',
+      section: 'Label',
       order: 2,
       type: 'string',
       display: 'select',
@@ -87,14 +113,14 @@ const visObject = {
       default: '"Google Sans"',
     },
     labels_font_size: {
-      section: 'Labels',
+      section: 'Label',
       order: 3,
       type: 'number',
       label: 'Font size (pt)',
       default: 12,
     },
     labels_color: {
-      section: 'Labels',
+      section: 'Label',
       order: 4,
       type: 'string',
       display: 'color',
@@ -168,9 +194,6 @@ const visObject = {
     doneRendering
   ) {
     this.clearErrors();
-    function replaceCommaWithSymbol(str) {
-      return str.replace(/,/g, ' ∩ ');
-    }
 
     // META
     const measures_count = queryResponse.fields.measures.length;
@@ -187,7 +210,6 @@ const visObject = {
       });
       return;
     }
-
     if (measures_count > 1) {
       this.addError({
         title: 'Too many measures',
@@ -202,7 +224,6 @@ const visObject = {
       });
       return;
     }
-
     if (dimensions_count > 1) {
       this.addError({
         title: 'Too many dimensions',
