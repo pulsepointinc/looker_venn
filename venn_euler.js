@@ -338,6 +338,20 @@ const visObject = {
       chartStatus.destroy();
     }
 
+    function shadeColor(color, magnitude) {
+      color = color.replace('#', '');
+      if (color.length !== 6) return color;
+      const decimalColor = parseInt(color, 16);
+      let red = (decimalColor >> 16) + magnitude;
+      red = Math.min(255, Math.max(0, red));
+      let green = ((decimalColor >> 8) & 0x00ff) + magnitude;
+      green = Math.min(255, Math.max(0, green));
+      let blue = (decimalColor & 0x0000ff) + magnitude;
+      blue = Math.min(255, Math.max(0, blue));
+      const adjustedColor = (red << 16) | (green << 8) | blue;
+      return `#${adjustedColor.toString(16).padStart(6, `0`)}`;
+    }
+
     const chart = new Chart(ctx, {
       type: config.diagram_type,
       data: diagramData,
@@ -348,12 +362,22 @@ const visObject = {
         plugins: {
           legend: {
             display: config.legend_show,
+            labels: {
+              font: {
+                size: config.legend_font_size,
+                family: config.legend_font_family,
+              },
+            },
           },
-          title: {
-            display: false,
-          },
+          title: { display: false },
         },
-        backgroundColor: config.background_colors,
+        backgroundColor: config.background_colors.map((color, index) =>
+          LookerCharts.Utils.getCrossfilterSelection(data[index]) === 1
+            ? shadeColor(color, 5)
+            : LookerCharts.Utils.getCrossfilterSelection(data[index]) !== 0
+            ? '#DEE1E5'
+            : color
+        ),
         borderColor: config.border_colors,
         borderWidth: config.border_width,
         responsive: config.autosizing,
